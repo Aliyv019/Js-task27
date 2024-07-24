@@ -9,6 +9,7 @@ async function fetchData(){
         document.querySelector('input').value=""
         document.querySelectorAll('span')[0].textContent=`${city}`
         document.querySelectorAll('span')[1].textContent=`${Math.round(data.main.temp)}°C`
+        document.querySelector('img').src=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
     }
     catch (error){
         console.log(error.message);
