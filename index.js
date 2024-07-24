@@ -8,7 +8,7 @@ async function fetchData(){
         console.log(data);
         document.querySelector('input').value=""
         document.querySelectorAll('span')[0].textContent=`${city}`
-        document.querySelectorAll('span')[1].textContent=`${data.main.temp}°C`
+        document.querySelectorAll('span')[1].textContent=`${Math.round(data.main.temp)}°C`
     }
     catch (error){
         console.log(error.message);
