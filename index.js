@@ -7,6 +7,7 @@ async function fetchData(){
         const data=await response.json()
         console.log(data);
         document.querySelector('input').value=""
+        document.querySelector('div').style.display="none"
         document.querySelectorAll('span')[0].textContent=`${city}`
         document.querySelectorAll('span')[1].textContent=`${Math.round(data.main.temp)}°C`
         document.querySelector('img').src=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
@@ -16,3 +17,4 @@ async function fetchData(){
     }
 }
 document.querySelector('button').addEventListener('click',fetchData)
+document.querySelector('input').addEventListener('keydown',(e)=> {if(e.key=="Enter"){fetchData()}})
