@@ -3,15 +3,15 @@ async function fetchData(){
     const city=document.querySelector('input').value
     const list=document.querySelector('ul')
     try{
-        // const response=await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${city}&apikey=${api_key}`)
         const response=await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${api_key}&units=metric`)
         const data=await response.json()
         console.log(data);
         list.innerHTML=""
         for(let i of data.list){
-            if(i.dt_txt.slice(11)=="18:00:00"){
+            if(i.dt_txt.slice(11)=="12:00:00"){
                 const listItem=document.createElement('li')
                 listItem.innerHTML=`
+                    <span>${i.dt_txt.slice(0,11)}</span>
                     <img src="https://openweathermap.org/img/wn/${i.weather[0].icon}@2x.png" style="">
                     <span>${city}</span>
                     <span>${Math.round(i.main.temp)}°C</span>
