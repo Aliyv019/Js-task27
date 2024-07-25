@@ -1,16 +1,25 @@
-const api_key="5c1e801a98de55b805c069472e3bdc3a"
-
 async function fetchData(){
+    const api_key="26c7b37e3a482d196fe369b701e2d5eb"
     const city=document.querySelector('input').value
+    const list=document.querySelector('ul')
     try{
-        const response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}&units=metric`)
+        // const response=await fetch(`https://api.tomorrow.io/v4/weather/forecast?location=${city}&apikey=${api_key}`)
+        const response=await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${api_key}&units=metric`)
         const data=await response.json()
         console.log(data);
-        document.querySelector('input').value=""
-        document.querySelector('div').style.display="none"
-        document.querySelectorAll('span')[0].textContent=`${city}`
-        document.querySelectorAll('span')[1].textContent=`${Math.round(data.main.temp)}°C`
-        document.querySelector('img').src=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+        list.innerHTML=""
+        for(let i of data.list){
+            if(i.dt_txt.slice(11)=="18:00:00"){
+                const listItem=document.createElement('li')
+                listItem.innerHTML=`
+                    <img src="https://openweathermap.org/img/wn/${i.weather[0].icon}@2x.png" style="">
+                    <span>${city}</span>
+                    <span>${Math.round(i.main.temp)}°C</span>
+                    <span>Küləyin sürəti:${i.wind.speed} m/san</span>`
+                list.appendChild(listItem)
+            }
+        }
+        
     }
     catch (error){
         console.log(error.message);
